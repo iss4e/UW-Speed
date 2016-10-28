@@ -1,0 +1,3 @@
+[submodule "user_modules/MFRC522-python"]
+	path = user_modules/MFRC522-python
+	url = https://github.com/mdoroshenko/MFRC522-python.git
