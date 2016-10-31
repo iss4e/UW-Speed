@@ -152,7 +152,6 @@ module.exports = {
     //    context.global.os
 
     functionGlobalContext: {
-	//rc522:require('rc522')
         // os:require('os'),
         // octalbonescript:require('octalbonescript'),
         // jfive:require("johnny-five"),
