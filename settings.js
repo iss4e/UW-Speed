@@ -80,8 +80,7 @@ module.exports = {
     // When httpAdminRoot is used to move the UI to a different root path, the
     // following property can be used to identify a directory of static content
     // that should be served at http://localhost:1880/.
-    httpStatic: '/home/pi/node-red-static/',
-//	httpStatic: '/usr/share/apache2/',
+    httpStatic: '/home/pi/.node-red/user_static/',
 
     // Securing Node-RED
     // -----------------
