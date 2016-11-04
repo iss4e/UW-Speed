@@ -6,7 +6,13 @@ have access to the internet (either by wi-fi or ethernet).
 Phone chargers do not provide sufficient power and, if you use one, you will see a yellow thunderbolt
 warning icon in the upper right corner of your desktop.
 
-* Update RPi firmware by runnning `sudo rpi-update`
+* Update RPi firmware by running `sudo rpi-update`
+* Update RPi software by running:
+```
+sudo apt-get update
+sudo apt-get dist-upgrade
+```
+
 * Updgrade node.js and Node-RED by running ``update-nodejs-and-nodered``
 * Enable SPI:
   * Run `sudo raspi-config`
