@@ -6,8 +6,8 @@ have access to the internet (either by wi-fi or ethernet).
 Phone chargers do not provide sufficient power and, if you use one, you will see a yellow thunderbolt
 warning icon in the upper right corner of your desktop.
 
-* Update RPi firmware by running `sudo rpi-update`
-* Update RPi software by running:
+* Upgrade RPi firmware by running `sudo rpi-update`
+* Upgrade RPi software by running:
 ```
 sudo apt-get update
 sudo apt-get dist-upgrade
@@ -21,14 +21,8 @@ sudo apt-get dist-upgrade
   * Select `yes` to enable SPI, select `OK` to confirm, select the `Finish` button
 * Add yourself to the `spi` group: `sudo adduser pi spi`
 * Reboot computer: `reboot`
-* Install npm:
-```
-sudo apt-get install npm
-sudo npm install -g npm@2.x
-hash -r
-```
 
-*SPEED-specific instructions begin*
+**SPEED-specific instructions begin**
 * Run `cd ~/.node-red`
 
 * Install project specific nodes:
@@ -44,9 +38,9 @@ git reset origin/master
 git checkout -t origin/master
 ```
 
-* TODO: Set up MySQL database with the appropriate schema.
+* *TODO: Set up MySQL database with the appropriate schema.*
 
-*SPEED-specific instructions end*
+**SPEED-specific instructions end**
 
 Using Node-RED:
 * Use `node-red-start` to start Node-RED
