@@ -1,6 +1,7 @@
 # speed-node-red
 This project assumes you are using a Raspberry Pi 3 with the default configuration and
 have access to the internet (either by wi-fi or ethernet).
+**SECURITY NOTE:** do not store your personal credentials for wi-fi authentication on the Pi; use project-specific credentials instead.
 
 **IMPORTANT: ensure that your RPi is connected to the electrical grid with the native power supply.**
 Phone chargers do not provide sufficient power and, if you use one, you will see a yellow thunderbolt
