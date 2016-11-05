@@ -7,6 +7,7 @@ have access to the internet (either by wi-fi or ethernet).
 Phone chargers do not provide sufficient power and, if you use one, you will see a yellow thunderbolt
 warning icon in the upper right corner of your desktop.
 
+**General RPi instructions**
 * Upgrade RPi firmware by running `sudo rpi-update`
 * Upgrade RPi software by running:
 ```
@@ -24,26 +25,28 @@ sudo apt-get dist-upgrade
 * Reboot computer: `reboot`
 
 **SPEED-specific instructions begin**
-* Run `cd ~/.node-red`
-
-* Install project specific nodes:
-  * MySQL: `npm install node-red-node-mysql`
-  * A/D Converter: `npm install node-red-node-pi-mcp3008`
 
 * Get the repository from github:
 ```
-git init
-git remote add origin https://github.com/iss4e/speed-node-red
-git fetch
-git reset origin/master
-git checkout -t origin/master
+cd
+rm -rf .node-red
+git clone --recursive https://github.com/iss4e/speed-node-red .node-red
+cd .node-red/user_modules/MFRC522-python
+git checkout master
+```
+
+* Install project-specific nodes:
+```
+cd ~/.node-red
+npm install node-red-node-mysql
+npm install node-red-node-pi-mcp3008
 ```
 
 * *TODO: Set up MySQL database with the appropriate schema.*
 
 **SPEED-specific instructions end**
 
-Using Node-RED:
+**Using Node-RED**
 * Use `node-red-start` to start Node-RED
 * Go to `127.0.0.1:1880` in your browser to access Node-RED GUI:
   * **IMPORTANT: do not use Epiphany (the default RPi browser) for Node-RED GUI**
