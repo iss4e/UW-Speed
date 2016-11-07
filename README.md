@@ -14,6 +14,8 @@ any loss of data from previous projects and/or network and script conflicts.
 Phone chargers do not provide sufficient power and, if you use one, you will see a yellow thunderbolt
 warning icon in the upper right corner of your desktop.
 
+*Note: upgrading your system as shown below may take quite some time.*
+
 * Upgrade RPi firmware by running `sudo rpi-update`
 * Upgrade RPi software by running:
 ```
@@ -50,9 +52,10 @@ npm install node-red-node-pi-mcp3008
 npm install node-red-dashboard
 ```
 
-* *TODO: Set up MySQL database with the appropriate schema.*
-
-**SPEED-specific instructions end**
+* Set up MySQL
+  * Install MySQL server on your RPi
+  * Create authentication credentials (you will need to use them once you start using Node-RED editor)
+  * Create a database called `speed`
 
 **Using Node-RED**
 * Use `node-red-start` to start Node-RED
@@ -62,8 +65,9 @@ npm install node-red-dashboard
 * Use `sudo systemctl disable nodered.service` to disable autostart on boot
 
 **IMPORTANT: do not use Epiphany (the default RPi browser) to access Node-RED GUI; use other browsers, such as Firefox**
-* Go to `localhost:1880` in your browser to access Node-RED editing GUI
-* Go to `localhost:1880/ui` in your browser to access Node-RED dashboard GUI (if you have it set up, SPEED has one already)
-* Go to `localhost:1880/main` in your browser to access client GUI (SPEED-specific)
+* Go to [localhost:1880](http://localhost:1880) in your browser to access Node-RED editor
+  * you will see that you have errors on the right side of the screen: follow the trace to enter your MySQL credentials and redeploy the flow; this should resolve the errors.
+* Go to [localhost:1880/main](http://localhost:1880/main) in your browser to access SPEED client GUI
+* Go to [localhost:1880/ui](http://localhost:1880/ui) in your browser to access Node-RED dashboard for monitoring
 
 *For more information on Node-RED go to the official [website](https://nodered.org/).*
