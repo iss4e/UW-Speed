@@ -53,9 +53,17 @@ npm install node-red-dashboard
 ```
 
 * Set up MySQL
-  * Install MySQL server on your RPi
-  * Create authentication credentials (you will need to use them once you start using Node-RED editor)
-  * Create a database called `speed`
+
+*Follow the instructions during the installation to set up MySQL authentication credentials for root:
+you will use these in Node-RED editor.*
+
+```
+sudo apt-get install mysql-server
+sudo apt-get install mysql-client
+mysql -uroot -p
+CREATE DATABASE speed;
+exit
+```
 
 **Using Node-RED**
 * Use `node-red-start` to start Node-RED
