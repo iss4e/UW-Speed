@@ -51,7 +51,6 @@ sudo apt-get install python2.7-dev mysql-server mysql-client
 mysql -uroot -p
 CREATE DATABASE speed;
 exit
-
 ```
 
 * Get the repository from github:
