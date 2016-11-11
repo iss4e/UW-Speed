@@ -82,8 +82,28 @@ npm install node-red-node-mysql node-red-dashboard node-red-node-pi-mcp3008
 
 **IMPORTANT: do not use Epiphany (the default RPi browser) to access Node-RED GUI; use other browsers, such as Iceweasel (Firefox)**
 * Go to [localhost:1880](http://localhost:1880) in your browser to access Node-RED editor
-  * you will see that you have errors on the right side of the screen: follow the trace to enter your MySQL credentials and redeploy the flow; this should resolve the errors.
+  * Click on any orange node marked `speed` and enter your MySQL credentials for user `root`.
+  * Re-deploy the flow afterwards.
 * Go to [localhost:1880/main](http://localhost:1880/main) in your browser to access SPEED client GUI
 * Go to [localhost:1880/ui](http://localhost:1880/ui) in your browser to access Node-RED dashboard for monitoring
 
 *For more information on Node-RED go to the official [website](https://nodered.org/).*
+
+**Using `git` in this project**
+
+Unfortunately, Node-RED flow data is stored in a `flows_raspberrypi.json` file, which is not very suitable for collaborative editing.
+Therefore, it is the most practical approach to avoid having two people editing the flow simultaneously on two different machines,
+because the merging process would be very difficult.
+
+If more than one person is going to work on the project, it would be acceptable to work in stages: one person finishes their work,
+syncs the progress to this online repository, and lets the other person work on it.
+
+The specific GIT instructions for this scenario would be the following.
+You will be working within the `~/.node-red` folder.
+* Use `git status` and `git log` for infromation purposes at any time
+* Before your start work, make sure you are working with the most recent version of this repo: `git pull`
+* After you modified some files locally, add them to the staging area: `git add -A` or `git add [specific file]`
+* If you are ready to make a commit, run `git commit -m "[commit message]"`
+* Once you are done working on your stage of the project, push your changes to this online repo: `git push`
+
+For more information on git commands, use the web and `man git [command]`.
