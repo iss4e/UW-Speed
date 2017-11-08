@@ -52,7 +52,7 @@ module.exports = {
 
     // To enabled pretty-printing of the flow within the flow file, set the following
     //  property to true:
-    //flowFilePretty: true,
+    flowFilePretty: true,
 
     // By default, all user data is stored in the Node-RED install directory. To
     // use a different location, the following property can be used
@@ -151,6 +151,54 @@ module.exports = {
     //    context.global.os
 
     functionGlobalContext: {
+	systemStarting:"System starting",
+	InfoString:"",
+	TimeOfPress:0,
+	updatedBalance:"Customer updated balance",
+	noCustomersStr:"No customers to display",
+	customerIndex:0,
+	userAddedLog:"User added.",
+	paidLog:"Paid.",
+	customerStr:"ID:",
+	balanceStr2:", balance:",
+	reportStat:1,
+	checkStatStr:"Check status",
+	defaultStr:"Default",
+	addUserStr:"Add user",
+	changeBalanceStr:"Change balance",
+	mode:"default",
+	statusMode:"batteryStat",
+	Vmax:20,
+	Vmin:5,
+	Imin:1,
+	voltage:0,
+	current:0,
+	displayCustomersStr:"Display customers",
+	VmaxStr:"Maximum battery voltage:",
+	VminStr:"Minimum battery voltage:",
+	IminStr:"Minimum charge current:",
+	statusStr:"Status Menu",
+	batteryStr:"Battery status:",
+	goodBatteryStr:"No issues",
+	badBatteryStr:"Out of range",
+	batteryStat:1,
+	goodPanelStr:"No issues",
+	badPanelStr:"Cloudy/dirty",
+	panelStat:1,
+	wireStr:"Wire status:",
+	panelStr:"Panel status:",
+	addMoneyStr:",+/- to change: ",
+	noAccount:"This account doesn't exist.",
+	charging:"Charging user",
+	noMoney:"Not enough money",
+	id:-1,
+	balance:0,
+	balanceStr:"Balance: ",
+	changeMoneyInvalidId:"Trying to change balance with an invalid",
+	userAlreadyExists:"This user already exists.",
+	idAdded:"ID Successfully added: ",
+	noUser:"There's no user",
+	pythonPath:"/home/pi/.node-red/user_modules/lcd-python/example.py "
         // os:require('os'),
         // octalbonescript:require('octalbonescript'),
         // jfive:require("johnny-five"),
