@@ -320,8 +320,8 @@
         "z": "29872d69.1b57fa",
         "mydb": "d675b3db.313288",
         "name": "",
-        "x": 1292,
-        "y": 52,
+        "x": 1297,
+        "y": 39,
         "wires": [
             []
         ]
@@ -953,11 +953,11 @@
         "type": "function",
         "z": "29872d69.1b57fa",
         "name": "Switch Mode",
-        "func": "// switches mode\n\n// get mode and python path\nvar pythonPathStr = global.get(\"pythonPath\");\nvar modeSetting = global.get(\"mode\");\nvar reportStat = global.get(\"reportStat\");\nvar bad = 0;\nvar good = 1;\nvar checkStatStr = global.get(\"checkStatStr\"); \n\n// from add user to change money\nif (modeSetting == \"addUser\") {\n    global.set(\"customerIndex\", 0);\n    global.set(\"mode\",\"changeMoney\");\n    var changeBalanceStr = global.get(\"changeBalanceStr\");\n    if (reportStat == bad) {\n        msg.payload = pythonPathStr.concat(changeBalanceStr, \"\\n\", checkStatStr);\n    }\n    else {\n    msg.payload = pythonPathStr.concat(changeBalanceStr);\n    }\n    return [msg, null, null, null, null, null, null, null];\n\n// from change money to default    \n} else if (modeSetting == \"changeMoney\") {\n    global.set(\"mode\",\"default\");\n    global.set(\"balance\", 0);\n    global.set(\"id\", -1);\n    var defaultStr = global.get(\"defaultStr\");\n    if (reportStat == bad) {\n        msg.payload = pythonPathStr.concat(defaultStr, \"     \", checkStatStr);\n    }\n    else {\n    msg.payload = pythonPathStr.concat(defaultStr);\n    }\n    return [null, msg, null, null, null, null, null, null];\n \n// from default to Vmin    \n} else if (modeSetting == \"default\") {\n    global.set(\"mode\",\"Vmin\");\n    var VminStr = global.get(\"VminStr\");\n    var Vmin = global.get(\"Vmin\");\n    msg.payload = pythonPathStr.concat(VminStr, Vmin.toString(),\" V\");\n    return [null, null, msg, null, null, null, null, null];\n\n// from Vmin to Vmax    \n} else if (modeSetting == \"Vmin\") {\n    global.set(\"mode\",\"Vmax\");\n    var VmaxStr = global.get(\"VmaxStr\");\n    var Vmax = global.get(\"Vmax\");\n    msg.payload = pythonPathStr.concat(VmaxStr, Vmax.toString(),\" V\");\n    return [null, null, null, msg, null, null, null, null];\n    \n// from Vmax to Imin    \n} else if (modeSetting == \"Vmax\") {\n    global.set(\"mode\",\"Imin\");\n    var IminStr = global.get(\"IminStr\");\n    var Imin = global.get(\"Imin\");\n    msg.payload = pythonPathStr.concat(IminStr, Imin.toString(),\" A\");\n    return [null, null, null, null, msg, null, null, null];\n\n// from Imin to Status    \n} else if (modeSetting == \"Imin\") {\n    global.set(\"mode\",\"status\");\n    var statusStr = global.get(\"statusStr\");\n    if (reportStat == bad) {\n        msg.payload = pythonPathStr.concat(statusStr, \"\\n\", checkStatStr);\n    }\n    else {\n    msg.payload = pythonPathStr.concat(statusStr);\n    }\n    return [null, null, null, null, null, msg, null, null];\n\n// from Status to add user\n} else if (modeSetting == \"status\") {\n    global.set(\"mode\",\"displayCustomers\");\n    var displayCustomersStr = global.get(\"displayCustomersStr\");\n    if (reportStat == bad) {\n        msg.payload = pythonPathStr.concat(displayCustomersStr, \"\\n\", checkStatStr);\n    }\n    else {\n    msg.payload = pythonPathStr.concat(displayCustomersStr);\n    }\n    return [null, null, null, null, null, null, msg, null];\n\n} else if(modeSetting == \"displayCustomers\") {\n     global.set(\"mode\",\"addUser\");\n    var addStr = global.get(\"addUserStr\");\n    if (reportStat == bad) {\n        msg.payload = pythonPathStr.concat(addStr, \" \", checkStatStr);\n    }\n    else {\n    msg.payload = pythonPathStr.concat(addStr);\n    }\n    return [null, null, null, null, null, null, null, msg];\n}\n",
+        "func": "// switches mode\n\n// get mode and python path\nvar pythonPathStr = global.get(\"pythonPath\");\nvar modeSetting = global.get(\"mode\");\nvar reportStat = global.get(\"reportStat\");\nvar bad = 0;\nvar good = 1;\nvar checkStatStr = global.get(\"checkStatStr\"); \n\n// from add user to change money\nif (modeSetting == \"addUser\") {\n    global.set(\"customerIndex\", 0);\n    global.set(\"mode\",\"changeMoney\");\n    var changeBalanceStr = global.get(\"changeBalanceStr\");\n    if (reportStat == bad) {\n        msg.payload = pythonPathStr.concat(changeBalanceStr, \"\\n\", checkStatStr);\n    }\n    else {\n    msg.payload = pythonPathStr.concat(changeBalanceStr);\n    }\n    return [msg, null, null, null, null, null, null, null];\n\n// from change money to default    \n} else if (modeSetting == \"changeMoney\") {\n    global.set(\"mode\",\"default\");\n    global.set(\"balance\", 0);\n    global.set(\"id\", -1);\n    var defaultStr = global.get(\"defaultStr\");\n    if (reportStat == bad) {\n        msg.payload = pythonPathStr.concat(defaultStr, \"     \", checkStatStr);\n    }\n    else {\n    msg.payload = pythonPathStr.concat(defaultStr);\n    }\n    return [null, msg, null, null, null, null, null, null];\n \n// from default to Vmin    \n} else if (modeSetting == \"default\") {\n    global.set(\"mode\",\"Vmin\");\n    var VminStr = global.get(\"VminStr\");\n    var Vmin = global.get(\"Vmin\");\n    msg.payload = pythonPathStr.concat(VminStr, Vmin.toString(),\" V\");\n    return [null, null, msg, null, null, null, null, null];\n\n// from Vmin to Vmax    \n} else if (modeSetting == \"Vmin\") {\n    global.set(\"mode\",\"Vmax\");\n    var VmaxStr = global.get(\"VmaxStr\");\n    var Vmax = global.get(\"Vmax\");\n    msg.payload = pythonPathStr.concat(VmaxStr, Vmax.toString(),\" V\");\n    return [null, null, null, msg, null, null, null, null];\n    \n// from Vmax to Imin    \n} else if (modeSetting == \"Vmax\") {\n    global.set(\"mode\",\"Imin\");\n    var IminStr = global.get(\"IminStr\");\n    var Imin = global.get(\"Imin\");\n    msg.payload = pythonPathStr.concat(IminStr, Imin.toString(),\" A\");\n    return [null, null, null, null, msg, null, null, null];\n\n// from Imin to Status    \n} else if (modeSetting == \"Imin\") {\n    global.set(\"mode\",\"status\");\n    var statusStr = global.get(\"statusStr\");\n    if (reportStat == bad) {\n        msg.payload = pythonPathStr.concat(statusStr, \"\\n\", checkStatStr);\n    }\n    else {\n    msg.payload = pythonPathStr.concat(statusStr);\n    }\n    return [null, null, null, null, null, msg, null, null];\n\n// from Status to add user\n} else if (modeSetting == \"status\") {\n    global.set(\"mode\",\"displayCustomers\");\n    var displayCustomersStr = global.get(\"displayCustomersStr\");\n    if (reportStat == bad) {\n        msg.payload = pythonPathStr.concat(displayCustomersStr, \"\\n\", checkStatStr);\n    }\n    else {\n    msg.payload = pythonPathStr.concat(displayCustomersStr);\n    }\n    return [null, null, null, null, null, null, msg, null];\n\n} else if(modeSetting == \"displayCustomers\") {\n    global.set(\"currID\", -1); // delete id\n     global.set(\"mode\",\"addUser\");\n    var addStr = global.get(\"addUserStr\");\n    if (reportStat == bad) {\n        msg.payload = pythonPathStr.concat(addStr, \" \", checkStatStr);\n    }\n    else {\n    msg.payload = pythonPathStr.concat(addStr);\n    }\n    return [null, null, null, null, null, null, null, msg];\n}\n",
         "outputs": "8",
         "noerr": 0,
-        "x": 605,
-        "y": 97,
+        "x": 586,
+        "y": 139,
         "wires": [
             [
                 "336bee9e.104a8a"
@@ -1102,86 +1102,6 @@
         ]
     },
     {
-        "id": "8d118f8c.e7b43",
-        "type": "inject",
-        "z": "891ea5e0.7635a8",
-        "name": "shutdown!",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 160.00001525878906,
-        "y": 141,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f2e6d499.3e1088",
-        "type": "exec",
-        "z": "891ea5e0.7635a8",
-        "command": "sudo poweroff #",
-        "addpay": false,
-        "append": "",
-        "useSpawn": "",
-        "timer": "5",
-        "name": "turn off Pi",
-        "x": 940,
-        "y": 91.99999237060547,
-        "wires": [
-            [],
-            [],
-            []
-        ]
-    },
-    {
-        "id": "befbc9cd.74099",
-        "type": "ui_button",
-        "z": "891ea5e0.7635a8",
-        "name": "",
-        "group": "a500e7c9.a8e7b8",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "label": "Shut down RPi",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "",
-        "x": 178,
-        "y": 237,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f9ccb19e.34fe4",
-        "type": "delay",
-        "z": "891ea5e0.7635a8",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 346,
-        "y": 508,
-        "wires": [
-            [
-                "b4c2716f.af1108"
-            ]
-        ]
-    },
-    {
         "id": "ad9b4b7.18d79b8",
         "type": "inject",
         "z": "891ea5e0.7635a8",
@@ -1300,7 +1220,7 @@
         "type": "function",
         "z": "29872d69.1b57fa",
         "name": "Step Through List Clockwise",
-        "func": "var pythonPathStr = global.get(\"pythonPath\");\nvar customerIndex = global.get(\"customerIndex\");\nvar numCustomers = msg.payload.length;\nnode.warn(customerIndex);\n\nif (numCustomers && customerIndex < numCustomers) {\n   if (customerIndex < numCustomers - 1) {\n       ++customerIndex\n       global.set(\"customerIndex\", customerIndex);\n   } var id = msg.payload[customerIndex].id;\n   var money = msg.payload[customerIndex].money;\n   var customerStr = global.get(\"customerStr\");\n   var balanceStr2 = global.get(\"balanceStr2\");\n   msg.payload = pythonPathStr.concat(customerStr, id.toString(), balanceStr2, money.toString(), customerIndex.toString());\nreturn msg;\n} if (!numCustomers) {\n    var noCustomersStr = global.get(\"noCustomersStr\");\n    msg.payload = pythonPathStr.concat(noCustomerStr);\n    return msg;\n}\n",
+        "func": "var pythonPathStr = global.get(\"pythonPath\");\nvar customerIndex = global.get(\"customerIndex\");\nvar numCustomers = msg.payload.length;\nnode.warn(customerIndex);\n\nif (numCustomers && customerIndex < numCustomers) {\n   if (customerIndex < numCustomers - 1) {\n       ++customerIndex\n       global.set(\"customerIndex\", customerIndex);\n   } var id = msg.payload[customerIndex].id;\n   // setting a global variable to show which id we are on\n   global.set(\"currId\", id);\n   var money = msg.payload[customerIndex].money;\n   var customerStr = global.get(\"customerStr\");\n   var balanceStr2 = global.get(\"balanceStr2\");\n   msg.payload = pythonPathStr.concat(customerStr, id.toString(), balanceStr2, money.toString());\nreturn msg;\n} if (!numCustomers) {\n    var noCustomersStr = global.get(\"noCustomersStr\");\n    msg.payload = pythonPathStr.concat(noCustomersStr);\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 1533,
@@ -1310,38 +1230,6 @@
                 "336bee9e.104a8a"
             ]
         ]
-    },
-    {
-        "id": "afe863e4.10b488",
-        "type": "inject",
-        "z": "891ea5e0.7635a8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 160,
-        "y": 508,
-        "wires": [
-            [
-                "f9ccb19e.34fe4",
-                "b4c2716f.af1108"
-            ]
-        ]
-    },
-    {
-        "id": "b4c2716f.af1108",
-        "type": "debug",
-        "z": "891ea5e0.7635a8",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 490,
-        "y": 440,
-        "wires": []
     },
     {
         "id": "ad6dcaba.f27d88",
@@ -1543,7 +1431,7 @@
         "type": "function",
         "z": "29872d69.1b57fa",
         "name": "Step Through List Counterclockwise",
-        "func": "var pythonPathStr = global.get(\"pythonPath\");\nvar customerIndex = global.get(\"customerIndex\");\nvar numCustomers = msg.payload.length;\nnode.warn(customerIndex);\n\nif (numCustomers && customerIndex >= 0) {\n   if (customerIndex != 0) {\n       node.warn(\"here\");\n        --customerIndex;\n        global.set(\"customerIndex\", customerIndex);\n   } var id = msg.payload[customerIndex].id;\n   var money = msg.payload[customerIndex].money;\n   var customerStr = global.get(\"customerStr\");\n    var balanceStr2 = global.get(\"balanceStr2\");\n   msg.payload = pythonPathStr.concat(customerStr, id.toString(), balanceStr2, money.toString());\nreturn msg;\n}  if (!numCustomers) {\n    var noCustomersStr = global.get(\"noCustomersStr\");\n    msg.payload = pythonPathStr.concat(noCustomerStr);\n    return msg;\n}\n",
+        "func": "var pythonPathStr = global.get(\"pythonPath\");\nvar customerIndex = global.get(\"customerIndex\");\nvar numCustomers = msg.payload.length;\nnode.warn(customerIndex);\n\nif (numCustomers && customerIndex >= 0) {\n   if (customerIndex !== 0) {\n       node.warn(\"here\");\n        --customerIndex;\n        global.set(\"customerIndex\", customerIndex);\n   } \n   // setting a global variable to show which id we are on\n   global.set(\"currId\", id);\n   var id = msg.payload[customerIndex].id;\n   var money = msg.payload[customerIndex].money;\n   var customerStr = global.get(\"customerStr\");\n    var balanceStr2 = global.get(\"balanceStr2\");\n   msg.payload = pythonPathStr.concat(customerStr, id.toString(), balanceStr2, money.toString());\nreturn msg;\n}  if (!numCustomers) {\n    var noCustomersStr = global.get(\"noCustomersStr\");\n    msg.payload = pythonPathStr.concat(noCustomersStr);\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 1568,
@@ -1610,8 +1498,8 @@
         "name": "Voltage Sensor",
         "pin": "3",
         "dnum": "1",
-        "x": 1055,
-        "y": 578,
+        "x": 325.00001525878906,
+        "y": 580,
         "wires": [
             [
                 "13f9cb44.cb85fd"
@@ -1626,26 +1514,11 @@
         "func": "var voltage = msg.payload*0.052;\nvar newMsg = {payload: voltage.toFixed(2)};\nreturn newMsg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1329,
-        "y": 611,
+        "x": 599.0000152587891,
+        "y": 613,
         "wires": [
             [
                 "b7e819ea.4502f8"
-            ]
-        ]
-    },
-    {
-        "id": "adf7055d.5ac19",
-        "type": "pimcp3008",
-        "z": "891ea5e0.7635a8",
-        "name": "Discharge Current ",
-        "pin": 0,
-        "dnum": "1",
-        "x": 1097,
-        "y": 431,
-        "wires": [
-            [
-                "2cda914f.5e192e"
             ]
         ]
     },
@@ -1656,8 +1529,8 @@
         "name": "Charging Current ",
         "pin": "1",
         "dnum": "1",
-        "x": 1083,
-        "y": 474,
+        "x": 353.00001525878906,
+        "y": 476,
         "wires": [
             [
                 "28031b74.e582dc"
@@ -1671,8 +1544,8 @@
         "name": "Voltage",
         "pin": "2",
         "dnum": "1",
-        "x": 1061,
-        "y": 517,
+        "x": 331.00001525878906,
+        "y": 519,
         "wires": [
             [
                 "43e5bfdd.c9405"
@@ -1687,8 +1560,8 @@
         "func": "var adc = msg.payload;\nvar numAdcBits = 1024;\nvar current = 36.7*adc/numAdcBits - 18.3;\nvar newMsg = {payload: current.toFixed(2)};\n//return msg;\nreturn newMsg;",
         "outputs": "1",
         "noerr": 0,
-        "x": 1344,
-        "y": 429,
+        "x": 614.0000152587891,
+        "y": 431,
         "wires": [
             [
                 "9a080d62.5fa58",
@@ -1704,8 +1577,8 @@
         "func": "var adc = msg.payload;\nvar numAdcBits = 1024;\nvar current = 36.7*adc/numAdcBits - 18.3;\nvar newMsg = {payload: current.toFixed(2)};\n//return msg;\nreturn newMsg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1341,
-        "y": 485,
+        "x": 611.0000152587891,
+        "y": 487,
         "wires": [
             [
                 "5db334fc.65ca34",
@@ -1721,8 +1594,8 @@
         "func": "var adc = msg.payload;\nvar numAdcBits = 1024;\nvar maxBattVoltage = 18;\nvar voltage = maxBattVoltage*adc/numAdcBits;\nvar twoDecVoltage = Math.round(voltage * 100) / 100;\nglobal.set(\"voltage\", twoDecVoltage);\n\nvar Vmax = global.get(\"Vmax\");\nvar Vmin = global.get(\"Vmin\");\n\nif (voltage >= Vmax || voltage <= Vmin) {\n    global.set(\"batteryStat\", 0);\n    global.set(\"reportStat\", 0);\n}\n\nelse {\n    global.set(\"batteryStat\", 1);\n}\n\nmsg.topic=\"INSERT INTO voltage_values (stamp,voltage) VALUES(NOW(),\"+ voltage.toString() + \");\";\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 1339,
-        "y": 537,
+        "x": 609.0000152587891,
+        "y": 539,
         "wires": [
             []
         ]
@@ -1738,14 +1611,14 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 869,
-        "y": 529,
+        "x": 139.00001525878906,
+        "y": 531,
         "wires": [
             [
-                "adf7055d.5ac19",
                 "bc07a22f.ed9eb8",
                 "ffae4fdc.2f6198",
-                "50d35a2c.f551f4"
+                "50d35a2c.f551f4",
+                "adf7055d.5ac19"
             ]
         ]
     },
@@ -1765,8 +1638,8 @@
         "payload": "",
         "payloadType": "str",
         "topic": "",
-        "x": 836,
-        "y": 575,
+        "x": 106.00001525878906,
+        "y": 577,
         "wires": [
             [
                 "50d35a2c.f551f4",
@@ -1787,8 +1660,8 @@
         "label": "Voltage",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 1477,
-        "y": 611,
+        "x": 747.0000152587891,
+        "y": 613,
         "wires": []
     },
     {
@@ -1803,8 +1676,8 @@
         "label": "Charging Current",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 1509,
-        "y": 470,
+        "x": 779.0000152587891,
+        "y": 472,
         "wires": []
     },
     {
@@ -1819,8 +1692,8 @@
         "label": "Discharge Current",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 1523,
-        "y": 429,
+        "x": 793.0000152587891,
+        "y": 431,
         "wires": []
     },
     {
@@ -1855,8 +1728,8 @@
             "#9467BD",
             "#C5B0D5"
         ],
-        "x": 1495,
-        "y": 539,
+        "x": 765.0000152587891,
+        "y": 541,
         "wires": [
             [],
             []
@@ -1873,8 +1746,8 @@
         "multi": "one",
         "ret": "\\n",
         "temp": "date,payload",
-        "x": 915,
-        "y": 481,
+        "x": 131.00001525878906,
+        "y": 476.0000305175781,
         "wires": [
             []
         ]
@@ -1911,8 +1784,8 @@
             "#9467BD",
             "#C5B0D5"
         ],
-        "x": 1499,
-        "y": 383,
+        "x": 769.0000152587891,
+        "y": 385,
         "wires": [
             [],
             []
@@ -1926,8 +1799,8 @@
         "func": "var date= new Date();\nvar TimeNow = date.getTime();\nglobal.set(\"TimeOfPress\", TimeNow);\nmsg.payload = TimeNow;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 546,
-        "y": 424,
+        "x": 286,
+        "y": 485,
         "wires": [
             []
         ]
@@ -2008,35 +1881,6 @@
         ]
     },
     {
-        "id": "956a091f.334da8",
-        "type": "rpi-gpio in",
-        "z": "891ea5e0.7635a8",
-        "name": "Shutdown",
-        "pin": "32",
-        "intype": "in",
-        "debounce": "5000",
-        "read": false,
-        "x": 458,
-        "y": 181,
-        "wires": [
-            [
-                "4d46ce43.cbd47"
-            ]
-        ]
-    },
-    {
-        "id": "734b7216.42fd2c",
-        "type": "debug",
-        "z": "891ea5e0.7635a8",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "payload",
-        "x": 1037,
-        "y": 188,
-        "wires": []
-    },
-    {
         "id": "474834c8.a3fc4c",
         "type": "function",
         "z": "29872d69.1b57fa",
@@ -2053,84 +1897,19 @@
         ]
     },
     {
-        "id": "4d46ce43.cbd47",
-        "type": "switch",
-        "z": "891ea5e0.7635a8",
-        "name": "Button on?",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "num"
-            }
-        ],
-        "checkall": "true",
-        "outputs": 1,
-        "x": 717,
-        "y": 127,
-        "wires": [
-            [
-                "f2e6d499.3e1088"
-            ]
-        ]
-    },
-    {
-        "id": "337ee0f4.54477",
-        "type": "rpi-gpio in",
-        "z": "29872d69.1b57fa",
-        "name": "Add Button Long Press",
-        "pin": "38",
-        "intype": "in",
-        "debounce": "5000",
-        "read": false,
-        "x": 115,
-        "y": 446,
-        "wires": [
-            [
-                "7cb1ed00.69e774"
-            ]
-        ]
-    },
-    {
         "id": "ad32dead.1ad67",
         "type": "rpi-gpio in",
         "z": "29872d69.1b57fa",
-        "name": "Subtract Button Long Press",
-        "pin": "36",
+        "name": "Shutdown Button Quick Press",
+        "pin": "32",
         "intype": "in",
-        "debounce": "5000",
+        "debounce": "100",
         "read": false,
-        "x": 125,
-        "y": 494,
+        "x": 203,
+        "y": 70,
         "wires": [
             [
                 "ae443bc8.214ad8"
-            ]
-        ]
-    },
-    {
-        "id": "7cb1ed00.69e774",
-        "type": "switch",
-        "z": "29872d69.1b57fa",
-        "name": "Button on?",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "num"
-            }
-        ],
-        "checkall": "true",
-        "outputs": 1,
-        "x": 325,
-        "y": 445,
-        "wires": [
-            [
-                "18a2429b.87ee3d"
             ]
         ]
     },
@@ -2150,32 +1929,12 @@
         ],
         "checkall": "true",
         "outputs": 1,
-        "x": 332,
-        "y": 492,
+        "x": 417,
+        "y": 60,
         "wires": [
             [
-                "18a2429b.87ee3d"
-            ]
-        ]
-    },
-    {
-        "id": "18a2429b.87ee3d",
-        "type": "join",
-        "z": "29872d69.1b57fa",
-        "name": "",
-        "mode": "custom",
-        "build": "string",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "",
-        "timeout": "",
-        "count": "2",
-        "x": 543,
-        "y": 482,
-        "wires": [
-            [
-                "81b87b8.6fb0288"
+                "45a6ca39.62351c",
+                "cb6b5622.da89e8"
             ]
         ]
     },
@@ -2186,9 +1945,145 @@
         "name": "",
         "active": true,
         "console": "false",
-        "complete": "false",
-        "x": 728,
-        "y": 532,
+        "complete": "payload",
+        "x": 935,
+        "y": 20,
         "wires": []
+    },
+    {
+        "id": "adf7055d.5ac19",
+        "type": "pimcp3008",
+        "z": "891ea5e0.7635a8",
+        "name": "Discharge Current ",
+        "pin": 0,
+        "dnum": "1",
+        "x": 367.00001525878906,
+        "y": 433,
+        "wires": [
+            [
+                "2cda914f.5e192e"
+            ]
+        ]
+    },
+    {
+        "id": "6a1262ea.3775a4",
+        "type": "exec",
+        "z": "29872d69.1b57fa",
+        "command": "sudo poweroff #",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "5",
+        "name": "turn off Pi",
+        "x": 656,
+        "y": 1173.583251953125,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b119ec51.3ef27",
+        "type": "rpi-gpio in",
+        "z": "29872d69.1b57fa",
+        "name": "Shutdown",
+        "pin": "32",
+        "intype": "in",
+        "debounce": "10000",
+        "read": false,
+        "x": 74.00001525878906,
+        "y": 1172.583251953125,
+        "wires": [
+            [
+                "3aa6f220.3554ae"
+            ]
+        ]
+    },
+    {
+        "id": "3aa6f220.3554ae",
+        "type": "switch",
+        "z": "29872d69.1b57fa",
+        "name": "Button on?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 1,
+        "x": 243,
+        "y": 1173.583251953125,
+        "wires": [
+            [
+                "6a6ecd2.13b93b4",
+                "5a3c2e10.2f2d",
+                "45a6ca39.62351c"
+            ]
+        ]
+    },
+    {
+        "id": "5a3c2e10.2f2d",
+        "type": "function",
+        "z": "29872d69.1b57fa",
+        "name": "",
+        "func": "var pythonPathStr = global.get(\"pythonPath\");\nmsg.payload = pythonPathStr.concat(\"SPEED Shutting Down\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 437.70001220703125,
+        "y": 1117.683349609375,
+        "wires": [
+            [
+                "336bee9e.104a8a"
+            ]
+        ]
+    },
+    {
+        "id": "6a6ecd2.13b93b4",
+        "type": "delay",
+        "z": "29872d69.1b57fa",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 454.70001220703125,
+        "y": 1173.8499755859375,
+        "wires": [
+            [
+                "6a1262ea.3775a4"
+            ]
+        ]
+    },
+    {
+        "id": "cb6b5622.da89e8",
+        "type": "function",
+        "z": "29872d69.1b57fa",
+        "name": "",
+        "func": "var modeSetting = global.get(\"mode\");\n//var bothButtonsPressed = \"1\";\n//var buttonsPressed = msg.payload;\nvar idToDelete = global.get(\"currId\");\nvar pythonPathStr = global.get(\"pythonPath\");\n\nif (modeSetting == \"displayCustomers\") {\n    if (idToDelete == -1) {\n        var noIDToDeleteStr = global.get(\"noIDToDeleteStr\");\n        node.warn(\"no customers to delete\");\n        msg.payload = pythonPathStr.concat(noIDToDeleteStr);\n        return [null, msg];\n    } else {\n        msg.topic=\"DELETE FROM users WHERE id=\"+ idToDelete.toString() + \";\";\n        var successfulDeleteStr = global.get(\"successfulDeleteStr\");\n        var customerIndex = global.get(\"customerIndex\");\n        var updatedIndex = customerIndex - 1;\n        global.set(\"customerIndex\", updatedIndex);\n        msg.payload = pythonPathStr.concat(successfulDeleteStr, idToDelete.toString());\n        return [msg, null];\n    }\n    \n} /*else { // bad delete error \n    var deleteErrorStr = global.get(\"deleteErrorStr\");\n    msg.payload = pythonPathStr.concat(deleteErrorStr);\n    return [null, msg];\n    \n}\n*/",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 729,
+        "y": 55,
+        "wires": [
+            [
+                "81b87b8.6fb0288",
+                "ac98e1bb.a6c1e8",
+                "336bee9e.104a8a"
+            ],
+            [
+                "336bee9e.104a8a"
+            ]
+        ]
     }
 ]

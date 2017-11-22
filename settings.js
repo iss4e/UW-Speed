@@ -151,6 +151,10 @@ module.exports = {
     //    context.global.os
 
     functionGlobalContext: {
+        currID:-1,
+        noIDToDeleteStr:"No customer to delete",
+        successfulDeleteStr:"Customer deleted ",
+        deleteErrorStr:"Delete error",
 	systemStarting:"System starting",
 	InfoString:"",
 	TimeOfPress:0,
