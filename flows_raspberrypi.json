@@ -10,11 +10,6 @@
         "label": "Flow 1"
     },
     {
-        "id": "a5663e7.9d862c",
-        "type": "tab",
-        "label": "Flow 2"
-    },
-    {
         "id": "cb74d090.a693c8",
         "type": "ui_tab",
         "z": "",
@@ -66,7 +61,8 @@
                 "default": "#0094CE",
                 "baseColor": "#0094CE",
                 "baseFont": "Helvetica Neue",
-                "edited": false
+                "edited": true,
+                "reset": false
             },
             "darkTheme": {
                 "default": "#097479",
@@ -140,6 +136,26 @@
                 "py": 0
             }
         }
+    },
+    {
+        "id": "2194dc54.ebdd94",
+        "type": "ui_link",
+        "z": "",
+        "name": "UserLog",
+        "link": "/home/pi/userLog.txt",
+        "icon": "open_in_browser",
+        "target": "newtab",
+        "order": 1
+    },
+    {
+        "id": "4bd02c67.91020c",
+        "type": "ui_link",
+        "z": "",
+        "name": "Data Log",
+        "link": "/home/pi/Data.txt",
+        "icon": "open_in_browser",
+        "target": "newtab",
+        "order": 2
     },
     {
         "id": "fab2d442.64e68",
@@ -839,7 +855,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "repeat": "5",
+        "repeat": "60",
         "crontab": "",
         "once": false,
         "x": 111,
@@ -1405,11 +1421,11 @@
         "type": "file",
         "z": "29872d69.1b57fa",
         "name": "",
-        "filename": "/home/pi/Desktop/testData.txt",
+        "filename": "/home/pi/Desktop/Data.txt",
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
-        "x": 1739,
+        "x": 1729,
         "y": 800,
         "wires": []
     },
@@ -1496,7 +1512,7 @@
         "type": "pimcp3008",
         "z": "891ea5e0.7635a8",
         "name": "Voltage Sensor",
-        "pin": "3",
+        "pin": "2",
         "dnum": "1",
         "x": 325.00001525878906,
         "y": 580,
@@ -1542,7 +1558,7 @@
         "type": "pimcp3008",
         "z": "891ea5e0.7635a8",
         "name": "Voltage",
-        "pin": "2",
+        "pin": "7",
         "dnum": "1",
         "x": 331.00001525878906,
         "y": 519,
@@ -1854,7 +1870,7 @@
         "type": "pimcp3008",
         "z": "29872d69.1b57fa",
         "name": "Voltage Sensor",
-        "pin": "3",
+        "pin": "2",
         "dnum": "1",
         "x": 295,
         "y": 979,
@@ -2069,11 +2085,11 @@
         "id": "cb6b5622.da89e8",
         "type": "function",
         "z": "29872d69.1b57fa",
-        "name": "",
+        "name": "Delete User",
         "func": "var modeSetting = global.get(\"mode\");\n//var bothButtonsPressed = \"1\";\n//var buttonsPressed = msg.payload;\nvar idToDelete = global.get(\"currId\");\nvar pythonPathStr = global.get(\"pythonPath\");\n\nif (modeSetting == \"displayCustomers\") {\n    if (idToDelete == -1) {\n        var noIDToDeleteStr = global.get(\"noIDToDeleteStr\");\n        node.warn(\"no customers to delete\");\n        msg.payload = pythonPathStr.concat(noIDToDeleteStr);\n        return [null, msg];\n    } else {\n        msg.topic=\"DELETE FROM users WHERE id=\"+ idToDelete.toString() + \";\";\n        var successfulDeleteStr = global.get(\"successfulDeleteStr\");\n        var customerIndex = global.get(\"customerIndex\");\n        var updatedIndex = customerIndex - 1;\n        global.set(\"customerIndex\", updatedIndex);\n        msg.payload = pythonPathStr.concat(successfulDeleteStr, idToDelete.toString());\n        return [msg, null];\n    }\n    \n} /*else { // bad delete error \n    var deleteErrorStr = global.get(\"deleteErrorStr\");\n    msg.payload = pythonPathStr.concat(deleteErrorStr);\n    return [null, msg];\n    \n}\n*/",
         "outputs": "2",
         "noerr": 0,
-        "x": 729,
+        "x": 749,
         "y": 55,
         "wires": [
             [
@@ -2083,6 +2099,71 @@
             ],
             [
                 "336bee9e.104a8a"
+            ]
+        ]
+    },
+    {
+        "id": "8752005e.b54a08",
+        "type": "http in",
+        "z": "29872d69.1b57fa",
+        "name": "Log",
+        "url": "/log",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 72.70002746582031,
+        "y": 1284.61669921875,
+        "wires": [
+            [
+                "8e95321c.f63f98"
+            ]
+        ]
+    },
+    {
+        "id": "c601ca0.4ac03b8",
+        "type": "http response",
+        "z": "29872d69.1b57fa",
+        "name": "",
+        "x": 461.6999816894531,
+        "y": 1269.9833984375,
+        "wires": []
+    },
+    {
+        "id": "8e95321c.f63f98",
+        "type": "function",
+        "z": "29872d69.1b57fa",
+        "name": "List of logs",
+        "func": "msg.payload =\"<html><body><h2>List of available logs</h2> <ul><li><a href=\\\"./userLog.txt\\\"> User log</a></li><li><a href=\\\"./Data.txt\\\"> Sensor data log</a></li></ul></body></html>\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 283.6999969482422,
+        "y": 1270.7666778564453,
+        "wires": [
+            [
+                "c601ca0.4ac03b8"
+            ]
+        ]
+    },
+    {
+        "id": "27c67d51.0202fa",
+        "type": "ui_button",
+        "z": "29872d69.1b57fa",
+        "name": "",
+        "group": "a500e7c9.a8e7b8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Shutdown",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "global",
+        "topic": "",
+        "x": 82.5,
+        "y": 1236,
+        "wires": [
+            [
+                "3aa6f220.3554ae"
             ]
         ]
     }
