@@ -142,7 +142,7 @@
         "type": "ui_link",
         "z": "",
         "name": "UserLog",
-        "link": "/home/pi/userLog.txt",
+        "link": "/userLog.txt",
         "icon": "open_in_browser",
         "target": "newtab",
         "order": 1
@@ -152,10 +152,30 @@
         "type": "ui_link",
         "z": "",
         "name": "Data Log",
-        "link": "/home/pi/Data.txt",
+        "link": "/Data.txt",
         "icon": "open_in_browser",
         "target": "newtab",
         "order": 2
+    },
+    {
+        "id": "d57be91b.0417a8",
+        "type": "ui_link",
+        "z": "",
+        "name": "Pictures",
+        "link": "/pictures.html",
+        "icon": "open_in_browser",
+        "target": "newtab",
+        "order": 3
+    },
+    {
+        "id": "29e89e74.16b802",
+        "type": "ui_link",
+        "z": "",
+        "name": "Picture archive",
+        "link": "/pictures.tar.gz",
+        "icon": "open_in_browser",
+        "target": "newtab",
+        "order": 4
     },
     {
         "id": "fab2d442.64e68",
@@ -1129,7 +1149,7 @@
         "crontab": "",
         "once": false,
         "x": 87,
-        "y": 687,
+        "y": 846,
         "wires": [
             [
                 "5714a8d8.5b5ca8"
@@ -1145,7 +1165,7 @@
         "console": "false",
         "complete": "false",
         "x": 622,
-        "y": 687,
+        "y": 846,
         "wires": []
     },
     {
@@ -1159,7 +1179,7 @@
         "syntax": "mustache",
         "template": "Hello {{name}}! Today is {{date}}",
         "x": 428,
-        "y": 687,
+        "y": 846,
         "wires": [
             [
                 "1ac3661f.629efa"
@@ -1175,7 +1195,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 263,
-        "y": 687,
+        "y": 846,
         "wires": [
             [
                 "80bf4fb5.ec183"
@@ -1514,12 +1534,10 @@
         "name": "Voltage Sensor",
         "pin": "2",
         "dnum": "1",
-        "x": 325.00001525878906,
-        "y": 580,
+        "x": 371,
+        "y": 568,
         "wires": [
-            [
-                "13f9cb44.cb85fd"
-            ]
+            []
         ]
     },
     {
@@ -1527,15 +1545,13 @@
         "type": "function",
         "z": "891ea5e0.7635a8",
         "name": "",
-        "func": "var voltage = msg.payload*0.052;\nvar newMsg = {payload: voltage.toFixed(2)};\nreturn newMsg;",
+        "func": "var voltage = msg.payload*0.063;\nvar newMsg = {payload: voltage.toFixed(4)};\nreturn newMsg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 599.0000152587891,
-        "y": 613,
+        "x": 602,
+        "y": 570,
         "wires": [
-            [
-                "b7e819ea.4502f8"
-            ]
+            []
         ]
     },
     {
@@ -1558,10 +1574,10 @@
         "type": "pimcp3008",
         "z": "891ea5e0.7635a8",
         "name": "Voltage",
-        "pin": "7",
+        "pin": "2",
         "dnum": "1",
-        "x": 331.00001525878906,
-        "y": 519,
+        "x": 324,
+        "y": 628.9999694824219,
         "wires": [
             [
                 "43e5bfdd.c9405"
@@ -1607,13 +1623,16 @@
         "type": "function",
         "z": "891ea5e0.7635a8",
         "name": "",
-        "func": "var adc = msg.payload;\nvar numAdcBits = 1024;\nvar maxBattVoltage = 18;\nvar voltage = maxBattVoltage*adc/numAdcBits;\nvar twoDecVoltage = Math.round(voltage * 100) / 100;\nglobal.set(\"voltage\", twoDecVoltage);\n\nvar Vmax = global.get(\"Vmax\");\nvar Vmin = global.get(\"Vmin\");\n\nif (voltage >= Vmax || voltage <= Vmin) {\n    global.set(\"batteryStat\", 0);\n    global.set(\"reportStat\", 0);\n}\n\nelse {\n    global.set(\"batteryStat\", 1);\n}\n\nmsg.topic=\"INSERT INTO voltage_values (stamp,voltage) VALUES(NOW(),\"+ voltage.toString() + \");\";\nreturn msg;\n",
+        "func": "var adc = msg.payload;\nvar numAdcBits = 1024;\nvar voltage = (3.3*adc/numAdcBits)*16;\nvar twoDecVoltage = Math.round(voltage * 100) / 100;\nglobal.set(\"voltage\", twoDecVoltage);\n\nvar Vmax = global.get(\"Vmax\");\nvar Vmin = global.get(\"Vmin\");\n\nif (voltage >= Vmax || voltage <= Vmin) {\n    global.set(\"batteryStat\", 0);\n    global.set(\"reportStat\", 0);\n}\n\nelse {\n    global.set(\"batteryStat\", 1);\n}\n\nmsg.topic=\"INSERT INTO voltage_values (stamp,voltage) VALUES(NOW(),\"+ voltage.toString() + \");\";\nmsg.payload = twoDecVoltage;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 609.0000152587891,
-        "y": 539,
+        "x": 597,
+        "y": 630,
         "wires": [
-            []
+            [
+                "b7e819ea.4502f8",
+                "9c3b59c0.c0f3e8"
+            ]
         ]
     },
     {
@@ -1627,12 +1646,11 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 139.00001525878906,
-        "y": 531,
+        "x": 130.00001525878906,
+        "y": 525.9999389648438,
         "wires": [
             [
                 "bc07a22f.ed9eb8",
-                "ffae4fdc.2f6198",
                 "50d35a2c.f551f4",
                 "adf7055d.5ac19"
             ]
@@ -1654,13 +1672,14 @@
         "payload": "",
         "payloadType": "str",
         "topic": "",
-        "x": 106.00001525878906,
-        "y": 577,
+        "x": 125.00001525878906,
+        "y": 575.9999694824219,
         "wires": [
             [
-                "50d35a2c.f551f4",
                 "bc07a22f.ed9eb8",
-                "adf7055d.5ac19"
+                "adf7055d.5ac19",
+                "ffae4fdc.2f6198",
+                "b5941ad4.f556d"
             ]
         ]
     },
@@ -1676,8 +1695,8 @@
         "label": "Voltage",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 747.0000152587891,
-        "y": 613,
+        "x": 760,
+        "y": 594,
         "wires": []
     },
     {
@@ -1728,7 +1747,7 @@
         "interpolate": "linear",
         "nodata": "",
         "ymin": "0",
-        "ymax": "2",
+        "ymax": "8",
         "removeOlder": 1,
         "removeOlderPoints": "",
         "removeOlderUnit": "60",
@@ -1748,23 +1767,6 @@
         "y": 541,
         "wires": [
             [],
-            []
-        ]
-    },
-    {
-        "id": "772001d6.4ad79",
-        "type": "csv",
-        "z": "891ea5e0.7635a8",
-        "name": "Voltage",
-        "sep": ",",
-        "hdrin": "",
-        "hdrout": "",
-        "multi": "one",
-        "ret": "\\n",
-        "temp": "date,payload",
-        "x": 131.00001525878906,
-        "y": 476.0000305175781,
-        "wires": [
             []
         ]
     },
@@ -1876,23 +1878,7 @@
         "y": 979,
         "wires": [
             [
-                "ea50d5f5.a8b04"
-            ]
-        ]
-    },
-    {
-        "id": "ea50d5f5.a8b04",
-        "type": "function",
-        "z": "29872d69.1b57fa",
-        "name": "",
-        "func": "var adc = msg.payload;\nvar voltage = adc*0.052;\nvar twoDecVoltage = Math.round(voltage * 100) / 100;\nglobal.set(\"voltage\", twoDecVoltage);\n\nmsg.topic = \"voltage\";\nmsg.payload = twoDecVoltage;\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 471,
-        "y": 993,
-        "wires": [
-            [
-                "35da9466.b6d5c4"
+                "c398c7b3.e601c8"
             ]
         ]
     },
@@ -2132,7 +2118,7 @@
         "type": "function",
         "z": "29872d69.1b57fa",
         "name": "List of logs",
-        "func": "msg.payload =\"<html><body><h2>List of available logs</h2> <ul><li><a href=\\\"./userLog.txt\\\"> User log</a></li><li><a href=\\\"./Data.txt\\\"> Sensor data log</a></li></ul></body></html>\"\nreturn msg;",
+        "func": "msg.payload =\"<html><body><h2>List of available logs</h2> <ul><li><a href=\\\"./userLog.txt\\\"> User log</a></li><li><a href=\\\"./Data.txt\\\"> Sensor data log</a></li><li><a href=\\\"./pictures.html\\\"> Pictures</a></li><li><a href=\\\"./pictures.tar.gz\\\"> Picture tar gz archive</a></li></ul></body></html>\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 283.6999969482422,
@@ -2157,14 +2143,271 @@
         "bgcolor": "",
         "icon": "",
         "payload": "1",
-        "payloadType": "global",
+        "payloadType": "num",
         "topic": "",
-        "x": 82.5,
-        "y": 1236,
+        "x": 119.5,
+        "y": 1227.9999389648438,
         "wires": [
             [
                 "3aa6f220.3554ae"
             ]
         ]
+    },
+    {
+        "id": "4dd01922.e8e74",
+        "type": "camerapi-takephoto",
+        "z": "29872d69.1b57fa",
+        "filemode": "2",
+        "filename": "",
+        "filedefpath": "1",
+        "filepath": "",
+        "fileformat": "jpeg",
+        "resolution": "2",
+        "rotation": "0",
+        "fliph": "0",
+        "flipv": "0",
+        "brightness": "50",
+        "contrast": "0",
+        "sharpness": "0",
+        "imageeffect": "none",
+        "name": "",
+        "x": 346.7000427246094,
+        "y": 1356.349853515625,
+        "wires": [
+            [
+                "f5d72f92.67c418"
+            ]
+        ]
+    },
+    {
+        "id": "d73d841b.d5d898",
+        "type": "inject",
+        "z": "29872d69.1b57fa",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "*/10 7-18 * * *",
+        "once": false,
+        "x": 120.69999694824219,
+        "y": 1357.4500732421875,
+        "wires": [
+            [
+                "4dd01922.e8e74"
+            ]
+        ]
+    },
+    {
+        "id": "9c3b59c0.c0f3e8",
+        "type": "debug",
+        "z": "891ea5e0.7635a8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 763.7000122070312,
+        "y": 653.9833374023438,
+        "wires": []
+    },
+    {
+        "id": "d43a4563.39c748",
+        "type": "inject",
+        "z": "891ea5e0.7635a8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 124.69999694824219,
+        "y": 683.4499816894531,
+        "wires": [
+            [
+                "b5941ad4.f556d"
+            ]
+        ]
+    },
+    {
+        "id": "c398c7b3.e601c8",
+        "type": "function",
+        "z": "29872d69.1b57fa",
+        "name": "",
+        "func": "var adc = msg.payload;\nvar numAdcBits = 1024;\nvar voltage = (3.3*adc/numAdcBits)*16.1;\nvar twoDecVoltage = Math.round(voltage * 100) / 100;\nglobal.set(\"voltage\", twoDecVoltage);\n\nvar Vmax = global.get(\"Vmax\");\nvar Vmin = global.get(\"Vmin\");\n\nif (voltage >= Vmax || voltage <= Vmin) {\n    global.set(\"batteryStat\", 0);\n    global.set(\"reportStat\", 0);\n}\n\nelse {\n    global.set(\"batteryStat\", 1);\n}\n\nmsg.topic = \"voltage\";\nmsg.payload = twoDecVoltage;\n\nif (twoDecVoltage > Vmin){\n    return [msg,null];\n}\nelse{\n    return [null,msg];\n}\n\n//return msg;",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 483.08331298828125,
+        "y": 1003.5,
+        "wires": [
+            [
+                "35da9466.b6d5c4",
+                "a45d5f29.7f00c8"
+            ],
+            [
+                "6a6ecd2.13b93b4",
+                "5a3c2e10.2f2d"
+            ]
+        ]
+    },
+    {
+        "id": "5dff3148.c0e598",
+        "type": "ui_text",
+        "z": "891ea5e0.7635a8",
+        "group": "4b67cba4.35d9d4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Temperature",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 644.7000274658203,
+        "y": 763.9166412353516,
+        "wires": []
+    },
+    {
+        "id": "b5941ad4.f556d",
+        "type": "sensor-ds18b20",
+        "z": "891ea5e0.7635a8",
+        "name": "",
+        "sensorid": "28-000009573c52",
+        "timer": "1",
+        "repeat": false,
+        "x": 397.7000274658203,
+        "y": 678.6833343505859,
+        "wires": [
+            [
+                "9c3b59c0.c0f3e8",
+                "5dff3148.c0e598"
+            ]
+        ]
+    },
+    {
+        "id": "a45d5f29.7f00c8",
+        "type": "debug",
+        "z": "29872d69.1b57fa",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 791.7000274658203,
+        "y": 1012.4833221435547,
+        "wires": []
+    },
+    {
+        "id": "c45abd69.137ce",
+        "type": "exec",
+        "z": "29872d69.1b57fa",
+        "command": "cd /home/pi/Desktop; tar -cvf  /home/pi/Desktop/pictures.tar /home/pi/Desktop/Pictures ; gzip < /home/pi/Desktop/pictures.tar > /home/pi/Desktop/pictures.tar.gz",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "Create zip file",
+        "x": 608.1500244140625,
+        "y": 1449.5,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c6ea35d9.850e3",
+        "type": "inject",
+        "z": "29872d69.1b57fa",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "86400",
+        "crontab": "",
+        "once": false,
+        "x": 358.1499938964844,
+        "y": 1451,
+        "wires": [
+            [
+                "c45abd69.137ce"
+            ]
+        ]
+    },
+    {
+        "id": "f5d72f92.67c418",
+        "type": "exec",
+        "z": "29872d69.1b57fa",
+        "command": "/bin/bash /home/pi/Desktop/mkpix",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "Update the pictures.html file",
+        "x": 683.1500244140625,
+        "y": 1355.699951171875,
+        "wires": [
+            [
+                "23f57e27.1a36c2"
+            ],
+            [
+                "23f57e27.1a36c2"
+            ],
+            [
+                "23f57e27.1a36c2"
+            ]
+        ]
+    },
+    {
+        "id": "bbfb42fa.1625a",
+        "type": "ui_button",
+        "z": "29872d69.1b57fa",
+        "name": "",
+        "group": "a500e7c9.a8e7b8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Delete zip file and pictures",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 192.15000915527344,
+        "y": 1535.6499938964844,
+        "wires": [
+            [
+                "e9b17d2b.1e0db8"
+            ]
+        ]
+    },
+    {
+        "id": "e9b17d2b.1e0db8",
+        "type": "exec",
+        "z": "29872d69.1b57fa",
+        "command": "rm -f /home/pi/Desktop/pictures.tar; rm -f /home/pi/Desktop/pictures.tar.gz; rm -f /home/pi/Desktop/Pictures/* ; cp /home/pi/Desktop/template.html  /home/pi/Desktop/pictures.html",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "Clean up",
+        "x": 585.1499938964844,
+        "y": 1532.4500122070312,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "23f57e27.1a36c2",
+        "type": "debug",
+        "z": "29872d69.1b57fa",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1047.5,
+        "y": 1411,
+        "wires": []
     }
 ]

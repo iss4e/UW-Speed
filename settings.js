@@ -174,7 +174,7 @@ module.exports = {
 	mode:"default",
 	statusMode:"batteryStat",
 	Vmax:20,
-	Vmin:5,
+	Vmin:10,
 	Imin:1,
 	voltage:0,
 	current:0,
