@@ -2,7 +2,7 @@
 
 You have two choices for installation: 
 
-1. Download and install the SPEED RPi image. This is 16GB and will take some time to download, but will require no additional work. 
+1. Download and install the SPEED RPi image from http://blizzard.cs.uwaterloo.ca/speed_09_07_2018.img. This is 8GB and will take some time to download, but will require no additional work. 
 
 2. Follow the steps below.
 
